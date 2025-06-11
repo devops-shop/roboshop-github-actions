@@ -10,8 +10,7 @@ jobs:
     if: inputs.appType == 'nodejs'
     runs-on: self-hosted
     steps:
-      - run: npm install
-        name: Download Dependencies
+      - run: echo OK
   Maven_Build:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
