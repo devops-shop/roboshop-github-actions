@@ -6,14 +6,7 @@ on:
         required: true
         type: string
 jobs:
-  NodeJS_Build:
-    if: inputs.appType == 'nodejs'
-    runs-on: self-hosted
-    steps:
-      - run: echo OK
-
-  Maven_Build:
-    if: inputs.appType == 'maven'
-    runs-on: self-hosted
-    steps:
-      - run: echo OK
+  Build:
+    uses: devops-shop/roboshop-github-actions/.github/workflows/build.yml@main
+    with:
+      appType: '${{ inputs.appType }}'
