@@ -12,6 +12,6 @@ jobs:
       - name: Docker Build
         run: |
           cd runner-docker-image
-          docker build -t glasshouse747/sock-github-runner .
+          docker build -t glasshouse747/github-runner .
           docker login -u glasshouse747 -p ${{ secrets.DOCKER_TOKEN }}
           docker push glasshouse747/sock-github-runner
