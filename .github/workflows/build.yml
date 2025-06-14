@@ -16,9 +16,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm install
         name: Download Dependencies
-      - name: Docker Build
-        if: inputs.docker_build == 'true'
-        run: docker build .
   Maven_Build:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
