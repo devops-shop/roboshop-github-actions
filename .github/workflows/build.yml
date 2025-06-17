@@ -16,6 +16,17 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm install
         name: Download Dependencies
+      - name: Import Secrets
+        id: import-secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: http://vault-int.mydevops.shop:8200/
+          token: ${{ inputs.vault_token }}
+          secrets: |
+            roboshop-infra/data/azure-sp ARM_CLIENT_ID | ARM_CLIENT_ID ;
+            roboshop-infra/data/azure-sp ARM_CLIENT_SECRET | ARM_CLIENT_SECRET ;
+            roboshop-infra/data/azure-sp ARM_TENANT_ID | ARM_TENANT_ID ;
+            roboshop-infra/data/azure-sp ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID ;
       - name: Docker Build
         if: inputs.docker_build == 'true'
         run: docker build .
