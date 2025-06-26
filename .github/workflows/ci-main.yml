@@ -13,7 +13,7 @@ on:
         required: true
 jobs:
   Build:
-    uses: devops-shop/roboshop-github-actions/.github/workflows/build.yml@main
+    uses: glasshouse747/roboshop-github-actions/.github/workflows/build.yml@main
     with:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
@@ -38,7 +38,7 @@ jobs:
         if: inputs.appType == 'python'
   DockerBuild:
     needs: Test
-    uses: devops-shop/roboshop-github-actions/.github/workflows/build.yml@main
+    uses: glasshouse747/roboshop-github-actions/.github/workflows/build.yml@main
     with:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
@@ -48,11 +48,12 @@ jobs:
 
   Dev_deploy:
     needs: DockerBuild
-    environment: DEV
-    uses: devops-shop/roboshop-github-actions/.github/workflows/aks-deploy.yml@main
+    #environment: DEV
+    uses: glasshouse747/roboshop-github-actions/.github/workflows/aks-deploy.yml@main
     with:
       appEnv: 'dev'
       resourceGroup: 'ukwest-dev'
+      appName: '${{ inputs.appName }}'
     secrets:
       vault_token: ${{ secrets.vault_token }}
 
