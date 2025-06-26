@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Helm repo
         uses: actions/checkout@v4
         with:
-          repository: raghudevopsb84/roboshop-helm
+          repository: glasshouse/roboshop-helm
           path: helm
       - name: Import Secrets
         id: import-secrets
