@@ -45,5 +45,5 @@ jobs:
 #          echo $TOKEN | docker login devopshop.azurecr.io -u 00000000-0000-0000-0000-000000000000 --password-stdin
 #          docker build -t devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
 #          docker push devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
-          az acr build --registry devopshop --image appName:${{ github.sha }} .
+          az acr build --registry devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
   
