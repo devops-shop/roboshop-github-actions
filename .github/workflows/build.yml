@@ -40,10 +40,6 @@ jobs:
       - name: Docker Build
         if: inputs.docker_build == 'true'
         run: |
-          sudo usermod -aG docker $USER
-          sudo systemctl restart docker
-          newgrp docker
-          docker ps
           az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           TOKEN=$(az acr login -n devopshop --expose-token --query accessToken -o tsv)
           echo $TOKEN | docker login devopshop.azurecr.io -u 00000000-0000-0000-0000-000000000000 --password-stdin
