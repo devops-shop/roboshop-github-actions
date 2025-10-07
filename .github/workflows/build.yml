@@ -40,6 +40,7 @@ jobs:
       - name: Docker Build
         if: inputs.docker_build == 'true'
         run: |
+          sudo -i
           az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           az acr login --name devopshop
           docker build -t devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
