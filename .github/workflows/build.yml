@@ -42,9 +42,6 @@ jobs:
         run: |
           az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           az acr login --name devopshop
-#          az acr login --name devopshop --expose-token --output tsv --query accessToken > acr_token.txt
-#          TOKEN=$(cat acr_token.txt)
-#          docker login devopshop.azurecr.io -u 00000000-0000-0000-0000-000000000000 -p $TOKEN
           docker build -t devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
           docker push devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
   
