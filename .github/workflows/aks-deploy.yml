@@ -44,4 +44,4 @@ jobs:
           kubectl get ns app >/dev/null 2>&1 || kubectl create ns app
           argocd app create ${{ inputs.appName }} --repo https://github.com/devops-shop/roboshop-helm-org.git --path . --dest-namespace app --dest-server https://kubernetes.default.svc --values env-dev/${{ inputs.appName }}.yaml --helm-set appTag=${{ github.sha }} --upsert
           argocd app sync ${{ inputs.appName }}
-          helm template . --values values.yaml --debug
+
