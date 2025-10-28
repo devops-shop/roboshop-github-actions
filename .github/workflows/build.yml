@@ -51,6 +51,16 @@ jobs:
         run: |
             /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.mydevops.shop:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
 
+      - name: CheckMarx SAST Scan
+        if: inputs.docker_build == 'true'
+        run: |
+          echo cx scan create -s . --project-name roboshop-${{ inputs.appName }} --scan-types sast
+
+      - name: CheckMarx SCA Scan
+        if: inputs.docker_build == 'true'
+        run: |
+          echo cx scan create --project-name roboshop-${{ inputs.appName }} -s . --scan-types sca
+
       - name: Docker Build
         if: inputs.docker_build == 'true'
         run: |
