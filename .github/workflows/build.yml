@@ -46,10 +46,10 @@ jobs:
 #            ### -Dsonar.qualitygate.wait=true
 #            ### Above option to fail the pipeline, As of now we are not doing it.
 
-      - name: SonarQube Scan - NonJava
-        if: inputs.docker_build == 'true' && inputs.appType != 'maven'
-        run: |
-            /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.mydevops.shop:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
+#      - name: SonarQube Scan - NonJava
+#        if: inputs.docker_build == 'true' && inputs.appType != 'maven'
+#        run: |
+#            /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.mydevops.shop:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
 
       - name: CheckMarx SAST Scan
         if: inputs.docker_build == 'true'
