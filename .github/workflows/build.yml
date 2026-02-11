@@ -67,6 +67,11 @@ jobs:
           az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           az acr login --name devopshop
           docker build -t devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
-          docker push devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
-        
-  
+          trivy image devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} --severity HIGH,CRITICAL --ignore-unfixed --exit-code 0
+
+      - name: Docker Push
+        if: inputs.docker_build == 'true'
+        run: |
+            az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
+            az acr login --name devopshop
+            docker push devopshop.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
