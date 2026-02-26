@@ -41,7 +41,8 @@ jobs:
           az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
           az aks get-credentials --name main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
           argocd login argocd-dev.mydevops.shop --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd  -o=jsonpath='{.data.password}' |base64 --decode) --skip-test-tls
-          kubectl get ns app >/dev/null 2>&1 || kubectl create ns app
+#         kubectl get ns app >/dev/null 2>&1 || kubectl create ns app
+          kubectl create ns app || true
           kubectl label ns app istio-injection=enabled
           argocd app create ${{ inputs.appName }} --repo https://github.com/devops-shop/roboshop-helm-org.git --path . --dest-namespace app --dest-server https://kubernetes.default.svc --values env-dev/${{ inputs.appName }}.yaml --helm-set appTag=${{ github.sha }} --upsert
           argocd app sync ${{ inputs.appName }}
